@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Css/stylenav.css">
+    <link rel="stylesheet" href="/Css/style-main.css">
+    <link rel="stylesheet" href="Css/Responsive.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Pelis pa' rato</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+
+    <header>
+        <nav class="nav-bar underline-nav" id="nav">
+            <div class="logo-container">
+            <img src="/Img/logo-principal.png" alt="Logo principal">
+            </div>
+
+            <div class="hamburger-menu" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="list-nav-bar" id="navMenu">
+                <span class="close-menu" id="closeMenu">&times;</span>
+                <li class="list-item-nav"><a href="#" class="nav-links">Inicio</a></li>
+                <li class="list-item-nav"><a href="#" class="nav-links">Acerca de nosotros</a></li>
+                <li class="list-item-nav"><a href="#" class="nav-links">Series</a></li>
+                <li class="list-item-nav"><a href="#" class="nav-links">Peliculas</a></li>
+            </ul>
+            <div class="login">
+            <a href="#" class="login-links">Iniciar Sesion</a>
+            <a href="#" class="login-links registro ">Registrarse</a>
+            </div>
+        </nav>
+
+        <div class="nav-overlay" id="navOverlay"></div>
+    </header>
+
+
+    <main>
+        <section  id="inicio" class="hero">
+            <div class="hero-content">
+            <h1 id="tittle-main" class="tittle-main"> <span>Pelis</span> <span class="fila-2">pa'</span> <span class="fila-3">rato</span></h1>
+            </div>
+
+            <div class="info-container" >
+                <div class="info-item">
+                    <h2 class="sub-title">Spiderman:No Way Home</h2>
+                    <p class="p-title">Para poder lograr que todos olviden su identidad, peter recurre al Dr.Strange, pero todo se descontrola</p>
+                </div>
+
+                <div class="info-item">
+                    <h2 class="sub-title">Avengers Infinity War</h2>
+                    <p class="p-title">Acompaña a los vengadores a enfrentar a su mas grande amenza de todos los tiempos, el titan Thanos</p>
+                </div>
+
+                <div class="container-ver-mas">
+                    <a href="#" class="link-ver-mas"> ver mas </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="carousel-movies" class="container-carrusel">
+            <div class="container-tittle">
+            <h2>Las peliculas más populares</h2>
+            <a href="#" class="ver-mas">Ver más</a>
+            </div>
+
+            <div class="carousel-wrapper"> 
+                <button id="btn-prev-movie" class="btn-prev">&lt;</button> 
+                <div id="img-movies-container" class="img-movies-container"> 
+                    <img src="Posters/poster-Avengers-IW.webp"  alt="Poster 1">
+                    <img src="Posters/poster-avenger-EG.webp"   alt="Poster 2">
+                    <img src="Posters/poster-noway-home.webp"  alt="Poster 3">
+                    <img src="Posters/poster-Kongvszilla.webp"   alt="Poster 4">
+                    <img src="Posters/poster-fri13th.webp"  alt="Poster 5">
+                    <img src="Posters/poster-halowin.webp"   alt="Poster 6">
+                    <img src="Posters/poster-terrifier3.webp"  alt="Poster 7">
+                    <img src="Posters/poster-Alien.webp"   alt="Poster 8">
+
+                    <img src="Posters/poster-joker.webp"  alt="Poster 1">
+                    <img src="Posters/poster-termina2.webp"   alt="Poster 2">
+                    <img src="Posters/"  alt="Poster 3">
+                    <img src="Posters/"   alt="Poster 4">
+                    <img src="Posters/"  alt="Poster 5">
+                    <img src="Posters/"    alt="Poster 6">
+                    <img src="Posters/"  alt="Poster 7">
+                    <img src="Posters/"  alt="Poster 8">
+                </div>
+
+                <button id="btn-next-movie" class="btn-next">&gt;</button> 
+            </div>
+        </section>
+
+
+        <section id="carrusel-series" class="container-carrusel">
+            <div class="container-tittle">
+            <h2>La series mas populares</h2>
+            <a href="">Ver mas</a>
+            </div>
+                <div class="container-main">
+                <div class="carousel-wrapper"> 
+                    <button id="btn-prev-serie" class="btn-prev">&lt;</button> 
+                    <div id="img-series-container" class="img-movies-container"> 
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 1">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 2">
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 3">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 4">
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 5">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 6">
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 7">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 8">
+
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 1">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 2">
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 3">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 4">
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 5">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 6">
+                        <img src="Img/poster-Avengers-IW.webp"  alt="Poster 7">
+                        <img src="Img/poster-noway-home.webp"   alt="Poster 8">
+                    </div>
+                    <button id="btn-next-serie" class="btn-next">&gt;</button> 
+                </div>
+        </section>
+
+
+        
+
+
+    </main>
+
+<footer id="footer">
+<div class="container-footer">   
+
+    <form class="footer-form">
+    <h3 class="footer-title">¿No encuentras tu pelicula favorita? <br>¡Envianos un comentario y la agregaremos lo antes posible!</h3>
+
+    <div class="input-group">
+        <input type="email" name="gmail" id="gmail-input" required>
+        <label for="gmail-input">Ingrese su correo</label>
+    </div>
+
+    <div class="input-group">
+        <input type="password" name="password" id="password-input" required>
+        <label for="password-input">Contraseña</label>
+    </div>
+
+    <div class="input-group textarea-group">
+        <textarea name="comentario" id="comentario" rows="3" required></textarea>
+        <label for="comentario">Escribe tu comentario...</label>
+    </div>
+
+    <button type="submit" class="btn-enviar">Enviar</button>
+    </form>
+
+    <div class="container-footer-content">
+    <p>&copy; <strong>2025 Pelis pa' rato</strong> — Creado por Exequiel, Luciano y Jazmín 🎞️</p>
+    <p class="footer-extra">Síguenos en nuestras redes: 
+        <a href="#" class="social-link">Instagram</a> | 
+        <a href="#" class="social-link">X (Twitter)</a> | 
+        <a href="#" class="social-link">Facebook</a>
+    </p>
+    </div>
+</div>            
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="/Js/javascript.js"></script>
+<script src="Js/js.js"></script>
+</body>
+</html>

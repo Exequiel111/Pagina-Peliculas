@@ -1,0 +1,604 @@
+/* ============================================
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ============================================ */
+
+/* ===== TABLETS Y PANTALLAS MEDIANAS (768px - 1024px) ===== */
+@media (max-width: 1024px) {
+    
+    /* === NAVEGACIÓN === */
+    .nav-bar {
+        padding: 10px 30px;
+        height: auto;
+        min-height: 80px;
+    }
+
+    .nav-bar ul {
+        gap: 20px;
+    }
+
+    .nav-bar a {
+        font-size: 0.9rem;
+    }
+
+    .logo-container {
+        width: 110px;
+    }
+
+    .login {
+        gap: 15px;
+    }
+
+    .login .registro {
+        width: 100px;
+        height: 45px;
+        font-size: 0.9rem;
+    }
+
+    /* === HERO === */
+    .hero .tittle-main {
+        font-size: 4.5rem;
+        letter-spacing: 5px;
+    }
+
+    .hero .hero-content h1::before,
+    .hero .hero-content h1::after {
+        width: 300px;
+    }
+
+    .hero .info-container {
+        bottom: 20%;
+        left: 3%;
+    }
+
+    .hero .info-container h2 {
+        font-size: 2.8rem;
+    }
+
+    .hero .info-container p {
+        font-size: 1.2rem;
+        max-width: 90%;
+    }
+
+    /* === CARRUSELES === */
+    .container-carrusel .container-tittle {
+        width: 380px;
+        margin: 25px 0 15px 25px;
+    }
+
+    .container-carrusel .container-tittle h2 {
+        font-size: 1.5rem;
+    }
+
+    .img-movies-container img {
+        max-width: 300px;
+        max-height: 350px;
+        min-width: 250px;
+        min-height: 320px;
+        width: 280px;
+        height: 350px;
+    }
+}
+
+/* ============================================
+   MENÚ HAMBURGUESA
+   ============================================ */
+
+/* Contenedor del botón hamburguesa (oculto por defecto) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    transform: scale(1.1);
+}
+
+/* Las tres líneas del menú */
+.hamburger-menu span {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+    border-radius: 2px;
+}
+
+/* Animación cuando el menú está abierto */
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-6px, 6px);
+    background-color: #e50914;
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -6px);
+    background-color: #e50914;
+}
+
+/* ===== TABLETS PEQUEÑAS (481px - 768px) ===== */
+@media (max-width: 768px) {
+    
+    /* === NAVEGACIÓN === */
+    .nav-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px 20px;
+        height: auto;
+        position: relative;
+    }
+
+    /* Mostrar el menú hamburguesa */
+    .hamburger-menu {
+        display: flex;
+    }
+
+    /* Ocultar el menú por defecto */
+    .list-nav-bar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: #171515;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 80px;
+        gap: 25px;
+        transition: right 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    /* Mostrar el menú cuando está activo */
+    .list-nav-bar.active {
+        right: 0;
+    }
+
+    .list-item-nav {
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .list-item-nav a {
+        font-size: 1.1rem;
+        display: block;
+    }
+
+    /* Botón de cerrar dentro del menú móvil */
+    .close-menu {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2.5rem;
+        color: #e50914;
+        cursor: pointer;
+        display: none;
+        background: none;
+        border: none;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        transition: transform 0.3s ease, color 0.3s ease;
+        font-weight: 300;
+    }
+
+    .close-menu:hover {
+        transform: scale(1.2) rotate(90deg);
+        color: white;
+    }
+
+    .list-nav-bar.active .close-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Login dentro del menú móvil */
+    .login {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        background-color: #171515;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 70%;
+        max-width: 300px;
+        transition: bottom 0.4s ease-in-out;
+        z-index: 999;
+        border-top: 2px solid #e50914;
+    }
+
+    .login.active {
+        bottom: 0;
+    }
+
+    .login a {
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 12px;
+    }
+
+    .login .registro {
+        width: 100%;
+    }
+
+    /* Overlay oscuro cuando el menú está abierto */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+        z-index: 998;
+    }
+
+    .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* === HERO === */
+    .hero {
+        height: 80vh;
+    }
+
+    .hero-content {
+        top: 8%;
+        left: 5%;
+    }
+
+    .hero .tittle-main {
+        font-size: 3rem;
+        letter-spacing: 3px;
+    }
+
+    .hero .hero-content h1::before,
+    .hero .hero-content h1::after {
+        width: 200px;
+        height: 6px;
+    }
+
+    .hero .info-container {
+        bottom: 15%;
+        left: 5%;
+        right: 5%;
+    }
+
+    .hero .info-container h2 {
+        font-size: 2rem;
+    }
+
+    .hero .info-container p {
+        font-size: 1rem;
+        max-width: 85%;
+    }
+
+    .container-ver-mas {
+        bottom: -80%;
+        height: 45px;
+        width: 100px;
+    }
+
+    /* === CARRUSELES === */
+    .container-carrusel .container-tittle {
+        width: 90%;
+        margin: 20px auto 15px auto;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .container-carrusel .container-tittle h2 {
+        font-size: 1.3rem;
+    }
+
+    .container-carrusel .container-tittle a {
+        margin: 0;
+    }
+
+    .carousel-wrapper {
+        padding: 0 10px;
+    }
+
+    .img-movies-container img {
+        max-width: 250px;
+        max-height: 300px;
+        min-width: 200px;
+        min-height: 270px;
+        width: 230px;
+        height: 290px;
+    }
+
+    .btn-prev, .btn-next {
+        padding: 8px;
+        font-size: 1.2rem;
+    }
+
+    /* === FOOTER === */
+    .footer-form {
+        max-width: 90%;
+    }
+
+    .footer-title {
+        font-size: 1rem;
+    }
+}
+
+/* ===== MÓVILES (320px - 480px) ===== */
+@media (max-width: 480px) {
+    
+    /* === NAVEGACIÓN === */
+    .nav-bar {
+        padding: 10px 15px;
+    }
+
+    .logo-container {
+        width: 90px;
+    }
+
+    .nav-bar ul {
+        gap: 10px;
+        font-size: 0.8rem;
+    }
+
+    .nav-bar a {
+        font-size: 0.8rem;
+    }
+
+    .login {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        max-width: 200px;
+    }
+
+    .login .registro {
+        height: 40px;
+        font-size: 0.8rem;
+    }
+
+    /* === HERO === */
+    .hero {
+        height: 70vh;
+    }
+
+    .hero-content {
+        top: 10%;
+        left: 5%;
+    }
+
+    .hero .tittle-main {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+    }
+
+    .hero .hero-content h1::before,
+    .hero .hero-content h1::after {
+        width: 120px;
+        height: 5px;
+    }
+
+    .hero .info-container {
+        bottom: 10%;
+        left: 5%;
+        right: 5%;
+    }
+
+    .hero .info-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero .info-container p {
+        font-size: 0.85rem;
+        max-width: 90%;
+    }
+
+    .container-ver-mas {
+        bottom: -100%;
+        height: 40px;
+        width: 90px;
+        font-size: 0.85rem;
+    }
+
+    .container-ver-mas:hover {
+        width: 120px;
+    }
+
+    /* === CARRUSELES === */
+    .container-carrusel .container-tittle {
+        width: 95%;
+        padding: 8px 5px;
+    }
+
+    .container-carrusel .container-tittle h2 {
+        font-size: 1.1rem;
+    }
+
+    .container-carrusel .container-tittle a {
+        font-size: 0.85rem;
+    }
+
+    .img-movies-container {
+        padding: 0 5px;
+    }
+
+    .img-movies-container img {
+        max-width: 180px;
+        max-height: 240px;
+        min-width: 150px;
+        min-height: 210px;
+        width: 170px;
+        height: 230px;
+        margin: 0 3px;
+    }
+
+    .btn-prev, .btn-next {
+        padding: 6px;
+        font-size: 1rem;
+        width: 35px;
+        height: 35px;
+    }
+
+    /* === FOOTER === */
+    .container-footer {
+        padding: 20px 15px 10px 15px;
+    }
+
+    .footer-form {
+        max-width: 95%;
+    }
+
+    .footer-title {
+        font-size: 0.9rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        font-size: 0.9rem;
+    }
+
+    .btn-enviar {
+        padding: 7px 15px;
+        font-size: 0.9rem;
+    }
+
+    .container-footer-content {
+        font-size: 0.75rem;
+    }
+
+    .footer-extra {
+        font-size: 0.7rem;
+    }
+}
+
+/* ===== MÓVILES PEQUEÑOS (menos de 375px) ===== */
+@media (max-width: 375px) {
+    
+    .nav-bar ul {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .hero .tittle-main {
+        font-size: 1.8rem;
+    }
+
+    .hero .info-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .hero .info-container p {
+        font-size: 0.75rem;
+    }
+
+    .img-movies-container img {
+        max-width: 150px;
+        max-height: 210px;
+        min-width: 130px;
+        min-height: 190px;
+        width: 140px;
+        height: 200px;
+    }
+}
+
+/* ===== AJUSTES PARA ORIENTACIÓN LANDSCAPE EN MÓVILES ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+    
+    .hero {
+        height: 100vh;
+    }
+
+    .hero-content {
+        top: 5%;
+    }
+
+    .hero .tittle-main {
+        font-size: 2rem;
+    }
+
+    .hero .info-container {
+        bottom: 10%;
+    }
+
+    .hero .info-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .hero .info-container p {
+        font-size: 0.8rem;
+    }
+
+    .nav-bar {
+        height: auto;
+        min-height: 60px;
+    }
+}
+
+/* ===== MEJORAS DE USABILIDAD TÁCTIL ===== */
+@media (max-width: 768px) {
+    /* Aumentar área de toque para enlaces y botones */
+    .nav-bar a,
+    .btn-prev,
+    .btn-next,
+    .container-ver-mas {
+        min-height: 44px; /* Tamaño mínimo recomendado para táctil */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Espaciado adicional para evitar clicks accidentales */
+    .list-item-nav {
+        padding: 5px 0;
+    }
+}
+
+/* ===== OPTIMIZACIÓN PARA PANTALLAS GRANDES (1920px+) ===== */
+@media (min-width: 1920px) {
+    
+    .nav-bar {
+        padding: 15px 100px;
+    }
+
+    .hero .tittle-main {
+        font-size: 8rem;
+    }
+
+    .hero .info-container h2 {
+        font-size: 4rem;
+    }
+
+    .hero .info-container p {
+        font-size: 1.8rem;
+    }
+
+    .img-movies-container img {
+        max-width: 450px;
+        max-height: 500px;
+        width: 380px;
+        height: 460px;
+    }
+
+    .container-carrusel .container-tittle {
+        width: 500px;
+    }
+}

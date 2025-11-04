@@ -1,0 +1,183 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    overflow-x: hidden;
+    background-color: #0d0d0d !important;
+
+}
+
+main {
+    color:white;
+}
+footer{
+    color: white;
+}
+
+li {
+    list-style: none;
+}
+
+
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Montserrat';
+}
+
+
+/*====Efecto de subrayado====*/
+.underline-nav .nav-links {
+    position: relative;
+    padding: 10px 0;
+    transition: .5s ease;
+}
+
+.underline-nav .nav-links:hover {
+    color: #e50914;
+}
+
+.underline-nav .nav-links::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #e50914;
+    transition: width 0.3s ease-in-out;
+    transform: skewX(45deg);
+}
+
+
+.underline-nav .nav-links:hover::after {
+    width: 100%;
+}
+/*---Fin del efecto de subrayado---*/
+
+
+.nav-bar {
+    top: 0%;
+    height: 111px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #171515;
+    padding: 10px 60px;
+}
+
+
+.nav-bar ul {
+    display: flex;
+    gap: 35px;
+
+}
+
+
+/*===Estilos del registro===*/
+
+.login {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.login .registro {
+    display: flex;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px 0;
+    height: 50px;
+    width: 115px;
+    background-color: #e50914;
+    z-index: 1;
+    color: white;
+    transition: color 0.3s ease-in,box-shadow 0.3s ease, border 0.3s ease;
+    border-radius: 10px;
+    border: 2px solid transparent;
+}
+
+
+.login .registro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: white;
+    transition: width 0.3s ease-in;
+    z-index: -1;
+}
+
+
+.login .registro:hover::before {
+    width: 100%;
+
+}
+
+.login .registro:hover {
+    color: #171515;
+    border: 2px solid red;
+    box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.7);
+
+}
+
+
+/*---Fin estilos registro---*/
+
+.logo-container {
+    position: relative;
+    width: 135px;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.logo-container::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    background-image: linear-gradient(180deg, #e50914, rgb(255, 255, 255));
+    animation: rotate 3s linear infinite;
+    z-index: 1;
+}
+
+
+.logo-container::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background-color: #171515; /* fondo interno */
+    z-index: 2;
+}
+
+.logo-container img {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
