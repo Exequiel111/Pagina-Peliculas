@@ -44,6 +44,8 @@ cambiarFondo();
 
 
 
+// ===== CARRUSEL 3D ESTILO NETFLIX =====
+
 const carrusel = document.getElementById('img-movies-container');
 const carruselseries = document.getElementById('img-series-container');
 
@@ -53,25 +55,208 @@ const btnNext = document.getElementById('btn-next-movie');
 const btnPrevSeries = document.getElementById('btn-prev-serie');
 const btnNextSeries = document.getElementById('btn-next-serie');
 
-const primerImagen = carrusel.querySelector('img'); // usá 'img', no '.img'
+// Variables para el carrusel 3D de películas
+let currentIndex = 0;
+const imagesMovies = carrusel.querySelectorAll('img');
+let isAnimating = false;
 
-const scrollAmount = primerImagen ? primerImagen.offsetWidth * 4 : 800; 
+// Función para actualizar el efecto 3D
+function updateCarousel3D() {
+    imagesMovies.forEach((img, index) => {
+        img.classList.remove('center-image');
+        
+        // Calcular la distancia desde el centro
+        const distance = Math.abs(index - currentIndex);
+        
+        if (index === currentIndex) {
+            // Imagen central
+            img.classList.add('center-image');
+            img.style.transform = 'scale(1.1) translateZ(50px)';
+            img.style.opacity = '1';
+            img.style.filter = 'brightness(1)';
+        } else if (distance === 1) {
+            // Imágenes adyacentes
+            const direction = index > currentIndex ? 1 : -1;
+            img.style.transform = `scale(0.85) rotateY(${25 * direction}deg)`;
+            img.style.opacity = '0.6';
+            img.style.filter = 'brightness(0.7)';
+        } else if (distance === 2) {
+            // Imágenes más alejadas
+            const direction = index > currentIndex ? 1 : -1;
+            img.style.transform = `scale(0.7) rotateY(${35 * direction}deg)`;
+            img.style.opacity = '0.4';
+            img.style.filter = 'brightness(0.5)';
+        } else {
+            // Imágenes muy alejadas
+            const direction = index > currentIndex ? 1 : -1;
+            img.style.transform = `scale(0.6) rotateY(${40 * direction}deg)`;
+            img.style.opacity = '0.2';
+            img.style.filter = 'brightness(0.3)';
+        }
+    });
+    
+    // Centrar la imagen actual en el viewport
+    centerCurrentImage();
+    
+    // Actualizar estado de los botones
+    updateButtonsState();
+}
 
-btnNext.addEventListener('click', () => {
-    carrusel.scrollLeft += scrollAmount;
+// Función para centrar la imagen actual (CORREGIDA)
+// Función para centrar la imagen actual (Versión ya corregida)
+function centerCurrentImage() {
+    const currentImg = imagesMovies[currentIndex];
+    
+    if (currentImg) {
+        // Posición izquierda de la imagen respecto al contenedor de imágenes (incluye el padding del CSS: 100px)
+        const imgLeft = currentImg.offsetLeft; 
+        const imgWidth = currentImg.offsetWidth;
+        
+        // Ancho visible del área de scroll
+        const containerWidth = carrusel.clientWidth;
+        
+        // CÁLCULO: Posición para que el centro de la imagen coincida con el centro del contenedor visible
+        const scrollPosition = imgLeft - (containerWidth / 2) + (imgWidth / 2);
+        
+        carrusel.scrollTo({
+            left: Math.max(0, scrollPosition), 
+            behavior: 'smooth'
+        });
+        
+        // Después de esta corrección, revisa la consola del navegador. Si ves que 
+        // `scrollPosition` tiene un valor positivo que aumenta, debería moverse.
+        // console.log(`Current Index: ${currentIndex}, Scroll To: ${scrollPosition}`);
+    }
+}
+
+// Función para actualizar el estado de los botones
+function updateButtonsState() {
+    // Deshabilitar botón "anterior" si estamos en la primera imagen
+    if (currentIndex === 0) {
+        btnPrev.disabled = true;
+        btnPrev.style.opacity = '0.3';
+        btnPrev.style.cursor = 'not-allowed';
+    } else {
+        btnPrev.disabled = false;
+        btnPrev.style.opacity = '1';
+        btnPrev.style.cursor = 'pointer';
+    }
+    
+    // Deshabilitar botón "siguiente" si estamos en la última imagen
+    if (currentIndex === imagesMovies.length - 1) {
+        btnNext.disabled = true;
+        btnNext.style.opacity = '0.3';
+        btnNext.style.cursor = 'not-allowed';
+    } else {
+        btnNext.disabled = false;
+        btnNext.style.opacity = '1';
+        btnNext.style.cursor = 'pointer';
+    }
+}
+
+// Navegar al siguiente (SIN loop infinito)
+function nextSlide() {
+    if (isAnimating) return;
+    
+    // No avanzar si ya estamos en la última imagen
+    if (currentIndex >= imagesMovies.length - 1) return;
+    
+    isAnimating = true;
+    currentIndex++; // Simplemente incrementa, sin módulo
+    updateCarousel3D();
+    
+    setTimeout(() => {
+        isAnimating = false;
+    }, 500);
+}
+
+// Navegar al anterior (SIN loop infinito)
+function prevSlide() {
+    if (isAnimating) return;
+    
+    // No retroceder si ya estamos en la primera imagen
+    if (currentIndex <= 0) return;
+    
+    isAnimating = true;
+    currentIndex--; // Simplemente decrementa
+    updateCarousel3D();
+    
+    setTimeout(() => {
+        isAnimating = false;
+    }, 500);
+}
+
+// Event listeners para películas
+btnNext.addEventListener('click', nextSlide);
+btnPrev.addEventListener('click', prevSlide);
+
+// Click en las imágenes para centrarlas
+imagesMovies.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        currentIndex = index;
+        updateCarousel3D();
+        
+        setTimeout(() => {
+            isAnimating = false;
+        }, 500);
+    });
 });
 
-btnPrev.addEventListener('click', () => {
-    carrusel.scrollLeft -= scrollAmount;
+// Navegación con teclado (respetando los límites)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+        nextSlide();
+    } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+    }
 });
 
-btnNextSeries.addEventListener('click', () => {
-    carruselseries.scrollLeft += scrollAmount;
-});
+// Inicializar el carrusel 3D
+updateCarousel3D();
 
-btnPrevSeries.addEventListener('click', () => {
-    carruselseries.scrollLeft -= scrollAmount;
-});
+// ===== CARRUSEL NORMAL PARA SERIES (mantiene la funcionalidad original) =====
+
+if (carruselseries && btnNextSeries && btnPrevSeries) {
+    const primerImagenSeries = carruselseries.querySelector('img');
+    const scrollAmountSeries = primerImagenSeries ? primerImagenSeries.offsetWidth * 4 : 800;
+
+    btnNextSeries.addEventListener('click', () => {
+        carruselseries.scrollLeft += scrollAmountSeries;
+    });
+
+    btnPrevSeries.addEventListener('click', () => {
+        carruselseries.scrollLeft -= scrollAmountSeries;
+    });
+}
+
+// Soporte para gestos táctiles en móviles (respetando límites)
+let touchStartX = 0;
+let touchEndX = 0;
+
+carrusel.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+carrusel.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            nextSlide(); // Swipe izquierda → siguiente (respeta límites)
+        } else {
+            prevSlide(); // Swipe derecha → anterior (respeta límites)
+        }
+    }
+}
 
 
 

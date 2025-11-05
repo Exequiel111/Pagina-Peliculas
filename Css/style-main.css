@@ -239,19 +239,33 @@ a {
 
 /*====Estilos del carrusel====*/
 
+/* ===== CARRUSEL 3D ESTILO NETFLIX ===== */
+
 .carousel-wrapper {
     display: flex;
     align-items: center;
+    position: relative;
+    /* 🚀 AUMENTO CLAVE: Añadir más padding vertical para evitar recortes */
+    padding: 90px 0; /* Aumentado de 50px a 80px (o más si es necesario) */
+    perspective: 1000px; /* Profundidad 3D */
 }
-
 
 .container-carrusel .container-tittle {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:  5px 10px;
+    padding: 5px 10px;
+    margin: 25px 0 15px 35px;
+    width: 450px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.4), 
+        0 0 15px rgba(255, 0, 0, 0.6);
 }
-
 
 .container-carrusel .container-tittle a {
     font-family: 'Montserrat';
@@ -259,69 +273,244 @@ a {
     color: white;
     margin: 0 25px;
     transition: transform 0.3s ease;
-    
 }
 
 .container-carrusel .container-tittle a:hover {
     transform: scale(1.1);
 }
 
-
-.container-carrusel .container-tittle {
-    margin: 25px 0 15px 35px;
-    padding: 10px 5px; 
-    width: 450px;
-    display: flex; 
-    align-items: center;
-    box-sizing: border-box; 
-    border-radius: 10px; 
-    background-color: rgba(255, 0, 0, 0.2); 
-    backdrop-filter: blur(8px); 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    box-shadow: 
-        0 4px 10px rgba(0, 0, 0, 0.4), 
-        0 0 15px rgba(255, 0, 0, 0.6); 
-}
-
-
-
 .img-movies-container {
-    display: flex; 
-    overflow-x: hidden;
-    scroll-behavior: smooth; 
-}
+    display: flex;
 
+    overflow-x: hidden; 
+    overflow-y: hidden; /* Mantiene fuera la barra vertical si existe */
+
+    gap: 20px;
+    padding: 0 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* 💡 IMPORTANTE: El contenedor debe tener un ancho definido o ser elástico 
+    para que las imágenes se desborden y el scroll sea posible.
+    Como tienes Flexbox, esto suele estar bien, pero si el ancho total del
+       contenedor es igual o mayor al ancho total de las imágenes, tampoco habrá scroll. */
+    width: 100%; /* Asegura que ocupe todo el espacio disponible */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+}
 
 .img-movies-container img {
-    flex-shrink: 0; 
+    flex-shrink: 0;
+    width: 320px;
+    height: 400px;
     max-width: 400px;
     max-height: 430px;
     min-width: 280px;
     min-height: 380px;
-    width: 320px; 
-    height: 400px;
-    margin: 0 5px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
 }
 
+/* Efecto 3D en las imágenes laterales */
+.img-movies-container img:not(.center-image) {
+    transform: scale(0.85) rotateY(25deg);
+    opacity: 0.6;
+    filter: brightness(0.7);
+}
 
+/* Imagen central destacada */
+.img-movies-container img.center-image {
+    transform: scale(1.1) translateZ(50px);
+    opacity: 1;
+    filter: brightness(1);
+    z-index: 10;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(255, 0, 0, 0.3);
+}
 
+/* Hover en cualquier imagen */
+.img-movies-container img:hover {
+    transform: scale(1.15) translateZ(60px) !important;
+    opacity: 1 !important;
+    filter: brightness(1.1) !important;
+    z-index: 20;
+    box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.9),
+        0 0 40px rgba(255, 0, 0, 0.5);
+}
+
+/* Botones de navegación */
 .btn-prev, .btn-next {
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
     color: white;
-    border: none;
-    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 15px 20px;
     cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .btn-prev {
-    left: 0;
+    left: 20px;
 }
 
 .btn-next {
+    right: 20px;
+}
+
+.btn-prev:hover, .btn-next:hover {
+    background: rgba(229, 9, 20, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+/* Wrapper con overflow hidden para ocultar los extremos */
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.carousel-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1), transparent);
+}
+
+.carousel-wrapper::after {
     right: 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 1), transparent);
+}
+
+
+
+/* ===== RESPONSIVE PARA EL CARRUSEL 3D ===== */
+
+@media (max-width: 1024px) {
+    .img-movies-container {
+        gap: 15px;
+        padding: 0 80px;
+    }
+
+    .img-movies-container img {
+        width: 280px;
+        height: 350px;
+    }
+
+    .img-movies-container img.center-image {
+        transform: scale(1.08) translateZ(40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-wrapper {
+        padding: 30px 0;
+        perspective: 800px;
+    }
+
+    .img-movies-container {
+        gap: 10px;
+        padding: 0 60px;
+    }
+
+    .img-movies-container img {
+        width: 230px;
+        height: 290px;
+    }
+
+    .img-movies-container img:not(.center-image) {
+        transform: scale(0.88) rotateY(20deg);
+    }
+
+    .img-movies-container img.center-image {
+        transform: scale(1.05) translateZ(30px);
+    }
+
+    .btn-prev, .btn-next {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        font-size: 1.2rem;
+    }
+
+    .btn-prev {
+        left: 10px;
+    }
+
+    .btn-next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-wrapper {
+        padding: 20px 0;
+        perspective: 600px;
+    }
+
+    .img-movies-container {
+        gap: 8px;
+        padding: 0 50px;
+    }
+
+    .img-movies-container img {
+        width: 170px;
+        height: 230px;
+    }
+
+    .img-movies-container img:not(.center-image) {
+        transform: scale(0.9) rotateY(15deg);
+    }
+
+    .img-movies-container img.center-image {
+        transform: scale(1.03) translateZ(20px);
+    }
+
+    .btn-prev, .btn-next {
+        width: 35px;
+        height: 35px;
+        padding: 8px;
+        font-size: 1rem;
+    }
+}
+
+/* Optimización para pantallas grandes */
+@media (min-width: 1920px) {
+    .img-movies-container {
+        gap: 30px;
+        padding: 0 150px;
+    }
+
+    .img-movies-container img {
+        width: 380px;
+        height: 460px;
+    }
+
+    .img-movies-container img.center-image {
+        transform: scale(1.12) translateZ(60px);
+    }
 }
 
 /*===============Carrusel-series==================*/
