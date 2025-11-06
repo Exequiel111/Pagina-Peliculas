@@ -674,3 +674,151 @@ a {
         font-size: 0.85rem;
     }
 }
+
+/* ===== MODAL REGISTRO ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* 🔹 Fondo completamente negro */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
+    opacity: 0;
+}
+
+/* Estado visible con animación */
+.modal-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #000; /* 🔹 Fondo negro del formulario */
+    color: white;
+    padding: 50px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    transform: scale(0.8);
+    opacity: 0;
+    animation: modalIn 0.4s ease forwards;
+}
+
+/* 🔹 Animación de entrada */
+@keyframes modalIn {
+from {
+    transform: scale(0.7);
+    opacity: 0;
+}
+to {
+    transform: scale(1);
+    opacity: 1;
+    }
+}
+
+/* 🔹 Animación de salida */
+@keyframes modalOut {
+from {
+    transform: scale(1);
+    opacity: 1;
+    }
+to {
+    transform: scale(0.7);
+    opacity: 0;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #e50914;
+    transition: 0.3s;
+}
+
+.close-modal:hover {
+    color: white;
+}
+
+.modal-content h2 {
+    font-family: 'Bebas Neue';
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    color: #e50914;
+}
+
+/* ===== INPUTS DEL MODAL ===== */
+#registroForm .input-group {
+    position: relative;
+    width: 100%;
+  margin-bottom: 35px; /* 🔹 Más espacio entre los campos */
+}
+
+#registroForm input {
+    width: 100%;
+    padding: 14px 10px 10px 5px;
+    border: none;
+    border-bottom: 2px solid #555;
+    background: transparent;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#registroForm label {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    color: #aaa;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.3s ease all;
+    opacity: 0.8;
+}
+
+/* Efecto flotante */
+#registroForm input:focus ~ label,
+#registroForm input:valid ~ label {
+    top: -12px;
+    font-size: 0.85rem;
+    color: #e50914;
+}
+
+/* Efecto enfoque */
+#registroForm input:focus {
+    border-bottom: 2px solid #e50914;
+}
+
+/* Botón */
+#registroForm .btn-enviar {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+#registroForm .btn-enviar:hover {
+    background-color: transparent;
+    color: #e50914;
+    border: 1px solid #e50914;
+    box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.7);
+}

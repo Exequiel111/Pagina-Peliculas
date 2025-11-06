@@ -334,4 +334,47 @@ if (navMenu) {
     });
 }
 
+// === MODAL REGISTRO ===
+const btnRegistro = document.querySelector('.registro');
+const modalRegistro = document.getElementById('modalRegistro');
+const closeModal = document.getElementById('closeModal');
+const registroForm = document.getElementById('registroForm');
 
+// Abrir el modal con animación
+btnRegistro.addEventListener('click', (e) => {
+    e.preventDefault();
+    modalRegistro.classList.add('show');
+});
+
+// Función para cerrar con animación
+function cerrarModal() {
+const modalContent = modalRegistro.querySelector('.modal-content');
+modalContent.style.animation = 'modalOut 0.3s ease forwards';
+
+  // Esperar que termine la animación antes de ocultar
+    setTimeout(() => {
+    modalRegistro.classList.remove('show');
+    modalContent.style.animation = 'modalIn 0.4s ease forwards';
+}, 300);
+}
+
+// Cerrar al hacer click en la X
+closeModal.addEventListener('click', cerrarModal);
+
+// Cerrar si se hace click fuera del contenido
+window.addEventListener('click', (e) => {
+    if (e.target === modalRegistro) {
+    cerrarModal();
+}
+});
+
+// Enviar formulario (simulado)
+registroForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('emailRegistro').value;
+
+    alert(`✅ ¡Te registraste con éxito!\nTe enviamos un mensaje de confirmación a: ${email}`);
+
+    registroForm.reset();
+    cerrarModal();
+});
