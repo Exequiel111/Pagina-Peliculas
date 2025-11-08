@@ -44,50 +44,54 @@ cambiarFondo();
 
 
 
-// ===== CARRUSEL 3D ESTILO NETFLIX =====
+// ===== CARRUSEL 3D ESTILO NETFLIX (APLICADO A PELÍCULAS Y SERIES) =====
 
-const carrusel = document.getElementById('img-movies-container');
-const carruselseries = document.getElementById('img-series-container');
+const carruselMovies = document.getElementById('img-movies-container');
+const carruselSeries = document.getElementById('img-series-container');
 
-const btnPrev = document.getElementById('btn-prev-movie');
-const btnNext = document.getElementById('btn-next-movie');
+const btnPrevMovie = document.getElementById('btn-prev-movie');
+const btnNextMovie = document.getElementById('btn-next-movie');
 
 const btnPrevSeries = document.getElementById('btn-prev-serie');
 const btnNextSeries = document.getElementById('btn-next-serie');
 
-// Variables para el carrusel 3D de películas
-let currentIndex = 0;
-const imagesMovies = carrusel.querySelectorAll('img');
-let isAnimating = false;
+// --- VARIABLES PARA PELÍCULAS ---
+let currentIndexMovie = 0;
+const imagesMovies = carruselMovies.querySelectorAll('img');
+let isAnimatingMovie = false;
 
-// Función para actualizar el efecto 3D
-function updateCarousel3D() {
-    imagesMovies.forEach((img, index) => {
+// --- VARIABLES PARA SERIES ---
+let currentIndexSeries = 0; // Nuevo índice para el carrusel de series
+const imagesSeries = carruselSeries.querySelectorAll('img'); // Imágenes del carrusel de series
+let isAnimatingSeries = false;
+
+// ----------------------------------------------------
+// FUNCIÓN GENÉRICA PARA EL EFECTO 3D Y CENTRADO
+// ----------------------------------------------------
+
+function updateCarousel3D(carruselElement, images, currentIndex) {
+    images.forEach((img, index) => {
         img.classList.remove('center-image');
         
-        // Calcular la distancia desde el centro
         const distance = Math.abs(index - currentIndex);
         
         if (index === currentIndex) {
-            // Imagen central
             img.classList.add('center-image');
-            img.style.transform = 'scale(1.1) translateZ(50px)';
+            // Usamos las clases CSS para el centrado, solo re-aplicamos el transform
+            img.style.transform = 'scale(1.1) translateZ(50px)'; 
             img.style.opacity = '1';
             img.style.filter = 'brightness(1)';
         } else if (distance === 1) {
-            // Imágenes adyacentes
             const direction = index > currentIndex ? 1 : -1;
             img.style.transform = `scale(0.85) rotateY(${25 * direction}deg)`;
             img.style.opacity = '0.6';
             img.style.filter = 'brightness(0.7)';
         } else if (distance === 2) {
-            // Imágenes más alejadas
             const direction = index > currentIndex ? 1 : -1;
             img.style.transform = `scale(0.7) rotateY(${35 * direction}deg)`;
             img.style.opacity = '0.4';
             img.style.filter = 'brightness(0.5)';
         } else {
-            // Imágenes muy alejadas
             const direction = index > currentIndex ? 1 : -1;
             img.style.transform = `scale(0.6) rotateY(${40 * direction}deg)`;
             img.style.opacity = '0.2';
@@ -95,168 +99,180 @@ function updateCarousel3D() {
         }
     });
     
-    // Centrar la imagen actual en el viewport
-    centerCurrentImage();
-    
-    // Actualizar estado de los botones
-    updateButtonsState();
+    centerCurrentImage(carruselElement, images[currentIndex]);
 }
 
-// Función para centrar la imagen actual (CORREGIDA)
-// Función para centrar la imagen actual (Versión ya corregida)
-function centerCurrentImage() {
-    const currentImg = imagesMovies[currentIndex];
-    
+// ----------------------------------------------------
+// FUNCIÓN GENÉRICA PARA CENTRAR IMAGEN (CORREGIDA)
+// ----------------------------------------------------
+
+function centerCurrentImage(carruselElement, currentImg) {
     if (currentImg) {
-        // Posición izquierda de la imagen respecto al contenedor de imágenes (incluye el padding del CSS: 100px)
+        // Obtenemos la posición de la imagen y el ancho del contenedor de scroll
         const imgLeft = currentImg.offsetLeft; 
         const imgWidth = currentImg.offsetWidth;
+        const containerWidth = carruselElement.clientWidth;
         
-        // Ancho visible del área de scroll
-        const containerWidth = carrusel.clientWidth;
-        
-        // CÁLCULO: Posición para que el centro de la imagen coincida con el centro del contenedor visible
+        // Cálculo para centrar la imagen en el área visible del carrusel
         const scrollPosition = imgLeft - (containerWidth / 2) + (imgWidth / 2);
         
-        carrusel.scrollTo({
+        carruselElement.scrollTo({
             left: Math.max(0, scrollPosition), 
             behavior: 'smooth'
         });
-        
-        // Después de esta corrección, revisa la consola del navegador. Si ves que 
-        // `scrollPosition` tiene un valor positivo que aumenta, debería moverse.
-        // console.log(`Current Index: ${currentIndex}, Scroll To: ${scrollPosition}`);
     }
 }
 
-// Función para actualizar el estado de los botones
-function updateButtonsState() {
-    // Deshabilitar botón "anterior" si estamos en la primera imagen
-    if (currentIndex === 0) {
-        btnPrev.disabled = true;
-        btnPrev.style.opacity = '0.3';
-        btnPrev.style.cursor = 'not-allowed';
-    } else {
-        btnPrev.disabled = false;
-        btnPrev.style.opacity = '1';
-        btnPrev.style.cursor = 'pointer';
-    }
+// ----------------------------------------------------
+// LÓGICA ESPECÍFICA PARA PELÍCULAS
+// ----------------------------------------------------
+
+function nextSlideMovie() {
+    if (isAnimatingMovie || currentIndexMovie >= imagesMovies.length - 1) return;
     
-    // Deshabilitar botón "siguiente" si estamos en la última imagen
-    if (currentIndex === imagesMovies.length - 1) {
-        btnNext.disabled = true;
-        btnNext.style.opacity = '0.3';
-        btnNext.style.cursor = 'not-allowed';
-    } else {
-        btnNext.disabled = false;
-        btnNext.style.opacity = '1';
-        btnNext.style.cursor = 'pointer';
-    }
+    isAnimatingMovie = true;
+    currentIndexMovie++;
+    updateCarousel3D(carruselMovies, imagesMovies, currentIndexMovie);
+    updateButtonsStateMovie();
+    
+    setTimeout(() => { isAnimatingMovie = false; }, 500);
 }
 
-// Navegar al siguiente (SIN loop infinito)
-function nextSlide() {
-    if (isAnimating) return;
+function prevSlideMovie() {
+    if (isAnimatingMovie || currentIndexMovie <= 0) return;
     
-    // No avanzar si ya estamos en la última imagen
-    if (currentIndex >= imagesMovies.length - 1) return;
+    isAnimatingMovie = true;
+    currentIndexMovie--;
+    updateCarousel3D(carruselMovies, imagesMovies, currentIndexMovie);
+    updateButtonsStateMovie();
     
-    isAnimating = true;
-    currentIndex++; // Simplemente incrementa, sin módulo
-    updateCarousel3D();
-    
-    setTimeout(() => {
-        isAnimating = false;
-    }, 500);
+    setTimeout(() => { isAnimatingMovie = false; }, 500);
 }
 
-// Navegar al anterior (SIN loop infinito)
-function prevSlide() {
-    if (isAnimating) return;
-    
-    // No retroceder si ya estamos en la primera imagen
-    if (currentIndex <= 0) return;
-    
-    isAnimating = true;
-    currentIndex--; // Simplemente decrementa
-    updateCarousel3D();
-    
-    setTimeout(() => {
-        isAnimating = false;
-    }, 500);
+function updateButtonsStateMovie() {
+    btnPrevMovie.disabled = currentIndexMovie === 0;
+    btnPrevMovie.style.opacity = currentIndexMovie === 0 ? '0.3' : '1';
+    btnPrevMovie.style.cursor = currentIndexMovie === 0 ? 'not-allowed' : 'pointer';
+
+    btnNextMovie.disabled = currentIndexMovie === imagesMovies.length - 1;
+    btnNextMovie.style.opacity = currentIndexMovie === imagesMovies.length - 1 ? '0.3' : '1';
+    btnNextMovie.style.cursor = currentIndexMovie === imagesMovies.length - 1 ? 'not-allowed' : 'pointer';
 }
 
-// Event listeners para películas
-btnNext.addEventListener('click', nextSlide);
-btnPrev.addEventListener('click', prevSlide);
+// ----------------------------------------------------
+// 🚀 LÓGICA ESPECÍFICA PARA SERIES (NUEVA)
+// ----------------------------------------------------
 
-// Click en las imágenes para centrarlas
+function nextSlideSeries() {
+    if (isAnimatingSeries || currentIndexSeries >= imagesSeries.length - 1) return;
+    
+    isAnimatingSeries = true;
+    currentIndexSeries++;
+    updateCarousel3D(carruselSeries, imagesSeries, currentIndexSeries);
+    updateButtonsStateSeries();
+    
+    setTimeout(() => { isAnimatingSeries = false; }, 500);
+}
+
+function prevSlideSeries() {
+    if (isAnimatingSeries || currentIndexSeries <= 0) return;
+    
+    isAnimatingSeries = true;
+    currentIndexSeries--;
+    updateCarousel3D(carruselSeries, imagesSeries, currentIndexSeries);
+    updateButtonsStateSeries();
+    
+    setTimeout(() => { isAnimatingSeries = false; }, 500);
+}
+
+function updateButtonsStateSeries() {
+    btnPrevSeries.disabled = currentIndexSeries === 0;
+    btnPrevSeries.style.opacity = currentIndexSeries === 0 ? '0.3' : '1';
+    btnPrevSeries.style.cursor = currentIndexSeries === 0 ? 'not-allowed' : 'pointer';
+
+    btnNextSeries.disabled = currentIndexSeries === imagesSeries.length - 1;
+    btnNextSeries.style.opacity = currentIndexSeries === imagesSeries.length - 1 ? '0.3' : '1';
+    btnNextSeries.style.cursor = currentIndexSeries === imagesSeries.length - 1 ? 'not-allowed' : 'pointer';
+}
+
+// ----------------------------------------------------
+// EVENT LISTENERS Y SETUP
+// ----------------------------------------------------
+
+// Event listeners para Películas
+btnNextMovie.addEventListener('click', nextSlideMovie);
+btnPrevMovie.addEventListener('click', prevSlideMovie);
+
+// Event listeners para Series
+btnNextSeries.addEventListener('click', nextSlideSeries);
+btnPrevSeries.addEventListener('click', prevSlideSeries);
+
+// Click en las imágenes de Películas para centrarlas
 imagesMovies.forEach((img, index) => {
     img.addEventListener('click', () => {
-        if (isAnimating) return;
-        isAnimating = true;
-        
-        currentIndex = index;
-        updateCarousel3D();
-        
-        setTimeout(() => {
-            isAnimating = false;
-        }, 500);
+        if (isAnimatingMovie) return;
+        isAnimatingMovie = true;
+        currentIndexMovie = index;
+        updateCarousel3D(carruselMovies, imagesMovies, currentIndexMovie);
+        updateButtonsStateMovie();
+        setTimeout(() => { isAnimatingMovie = false; }, 500);
     });
 });
 
-// Navegación con teclado (respetando los límites)
+// Click en las imágenes de Series para centrarlas
+imagesSeries.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        if (isAnimatingSeries) return;
+        isAnimatingSeries = true;
+        currentIndexSeries = index;
+        updateCarousel3D(carruselSeries, imagesSeries, currentIndexSeries);
+        updateButtonsStateSeries();
+        setTimeout(() => { isAnimatingSeries = false; }, 500);
+    });
+});
+
+// Navegación con teclado (controla ambos carruseles según el último enfocado o simplemente el principal)
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') {
-        nextSlide();
+        nextSlideMovie(); 
+        nextSlideSeries(); // Puedes comentar esta línea si solo quieres que la navegación por teclado controle uno.
     } else if (e.key === 'ArrowLeft') {
-        prevSlide();
+        prevSlideMovie();
+        prevSlideSeries(); // Puedes comentar esta línea si solo quieres que la navegación por teclado controle uno.
     }
 });
 
-// Inicializar el carrusel 3D
-updateCarousel3D();
-
-// ===== CARRUSEL NORMAL PARA SERIES (mantiene la funcionalidad original) =====
-
-if (carruselseries && btnNextSeries && btnPrevSeries) {
-    const primerImagenSeries = carruselseries.querySelector('img');
-    const scrollAmountSeries = primerImagenSeries ? primerImagenSeries.offsetWidth * 4 : 800;
-
-    btnNextSeries.addEventListener('click', () => {
-        carruselseries.scrollLeft += scrollAmountSeries;
-    });
-
-    btnPrevSeries.addEventListener('click', () => {
-        carruselseries.scrollLeft -= scrollAmountSeries;
-    });
-}
-
-// Soporte para gestos táctiles en móviles (respetando límites)
-let touchStartX = 0;
-let touchEndX = 0;
-
-carrusel.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
+// Soporte para gestos táctiles en móvil (Solo para carrusel de Películas)
+// Se puede adaptar para series si se usa un elemento común o se detecta el objetivo.
+carruselMovies.addEventListener('touchstart', (e) => {
+    e.currentTarget.touchStartX = e.changedTouches[0].screenX;
 }, { passive: true });
 
-carrusel.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
+carruselMovies.addEventListener('touchend', (e) => {
+    e.currentTarget.touchEndX = e.changedTouches[0].screenX;
+    handleSwipeMovie(e.currentTarget);
 }, { passive: true });
 
-function handleSwipe() {
+function handleSwipeMovie(element) {
     const swipeThreshold = 50;
-    const diff = touchStartX - touchEndX;
+    const diff = element.touchStartX - element.touchEndX;
     
     if (Math.abs(diff) > swipeThreshold) {
         if (diff > 0) {
-            nextSlide(); // Swipe izquierda → siguiente (respeta límites)
+            nextSlideMovie();
         } else {
-            prevSlide(); // Swipe derecha → anterior (respeta límites)
+            prevSlideMovie();
         }
     }
 }
+
+// Inicializar ambos carruseles 3D
+updateCarousel3D(carruselMovies, imagesMovies, currentIndexMovie);
+updateButtonsStateMovie();
+
+// Inicializar Series
+updateCarousel3D(carruselSeries, imagesSeries, currentIndexSeries);
+updateButtonsStateSeries();
 
 
 

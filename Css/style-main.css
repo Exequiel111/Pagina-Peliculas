@@ -255,7 +255,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
-    margin: 25px 0 15px 35px;
+    margin: 35px 0 10px 30px;
     width: 450px;
     box-sizing: border-box;
     border-radius: 10px;
@@ -283,7 +283,7 @@ a {
     display: flex;
 
     overflow-x: hidden; 
-    overflow-y: hidden; /* Mantiene fuera la barra vertical si existe */
+    overflow-y: hidden; 
 
     gap: 20px;
     padding: 0 100px;
@@ -325,7 +325,7 @@ a {
 
 /* Imagen central destacada */
 .img-movies-container img.center-image {
-    transform: scale(1.1) translateZ(50px);
+    transform: scale(1.05) translateZ(50px);
     opacity: 1;
     filter: brightness(1);
     z-index: 10;
@@ -336,7 +336,7 @@ a {
 
 /* Hover en cualquier imagen */
 .img-movies-container img:hover {
-    transform: scale(1.15) translateZ(60px) !important;
+    transform: scale(1.05) translateZ(60px) !important;
     opacity: 1 !important;
     filter: brightness(1.1) !important;
     z-index: 20;
@@ -808,12 +808,15 @@ to {
     color: #fff;
     border: none;
     padding: 12px 20px;
-    margin-top: 5px;
+    margin-top: 30px;
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 100%;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 #registroForm .btn-enviar:hover {

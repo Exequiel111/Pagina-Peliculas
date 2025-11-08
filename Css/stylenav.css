@@ -2,13 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 body {
     overflow-x: hidden;
     background-color: #0d0d0d !important;
-
 }
 
 main {
@@ -29,6 +27,7 @@ li {
     font-size: 1rem;
     font-family: 'Montserrat';
 }
+
 
 
 /*====Efecto de subrayado====*/
