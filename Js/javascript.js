@@ -7,7 +7,14 @@
 //Creo una array con las imagenes que iran al fondo del hero//
 const imagenes = [
     'Img/Noway-home.jpeg',
-    'Img/avengers-Gemini.png'
+    'Img/avengers-Gemini.png',
+    'Img/breaking-bad.jpg',
+    'Img/imagen-stranger-things.jpg',
+    'Img/Alien-romulus.jpeg',
+    'Img/interestelar.jpg',
+    'Img/the-last-of-us.jpg',
+    'Img/the-walking-dead.jpg',
+    'Img/arcain.jpg'
 ];
 
 const tituloH1 = document.getElementById("tittle-main");
