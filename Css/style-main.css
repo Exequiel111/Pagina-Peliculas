@@ -191,7 +191,7 @@ a {
 .hero .hero-content h1::before {
     content: '';
     height: 10px;
-    width: 400px;
+    width: 450px;
     background-color: #e50914;
     position: absolute;
     left: 0;
