@@ -60,8 +60,13 @@ li {
 /*---Fin del efecto de subrayado---*/
 
 
+/*=== NAVBAR STICKY (FIJA AL SCROLL) ===*/
+
 .nav-bar {
-    top: 0%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    right: 0;
     height: 111px;
     width: 100%;
     display: flex;
@@ -69,15 +74,34 @@ li {
     justify-content: space-between;
     background-color: #171515;
     padding: 10px 60px;
+    z-index: 1000; 
+    transition: all 0.3s ease-in-out;
 }
 
+/* Efecto cuando haces scroll hacia abajo */
+.nav-bar.scrolled {
+    height: 80px;
+    background-color: rgba(23, 21, 21, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 8px 60px;
+}
+
+
+.nav-bar.scrolled .logo-container {
+    width: 110px;
+}
+
+
+body {
+    padding-top: 111px;
+}
 
 .nav-bar ul {
     display: flex;
     gap: 35px;
-
 }
-
 
 /*===Estilos del registro===*/
 
@@ -87,7 +111,6 @@ li {
     gap: 30px;
     justify-content: center;
     align-items: center;
-    
 }
 
 .login .registro {
@@ -104,11 +127,10 @@ li {
     background-color: #e50914;
     z-index: 1;
     color: white;
-    transition: color 0.3s ease-in,box-shadow 0.3s ease, border 0.3s ease;
+    transition: color 0.3s ease-in, box-shadow 0.3s ease, border 0.3s ease;
     border-radius: 10px;
     border: 2px solid transparent;
 }
-
 
 .login .registro::before {
     content: '';
@@ -122,19 +144,22 @@ li {
     z-index: -1;
 }
 
-
 .login .registro:hover::before {
     width: 100%;
-
 }
 
 .login .registro:hover {
     color: #171515;
     border: 2px solid red;
     box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.7);
-
 }
 
+/* Ajustar botón registro cuando se hace scroll */
+.nav-bar.scrolled .login .registro {
+    height: 42px;
+    width: 105px;
+    font-size: 0.9rem;
+}
 
 /*---Fin estilos registro---*/
 
@@ -144,6 +169,7 @@ li {
     height: 100%;
     border-radius: 8px;
     overflow: hidden;
+    transition: width 0.3s ease;
 }
 
 .logo-container::before {
@@ -155,12 +181,11 @@ li {
     z-index: 1;
 }
 
-
 .logo-container::after {
     content: '';
     position: absolute;
     inset: 5px;
-    background-color: #171515; /* fondo interno */
+    background-color: #171515;
     z-index: 2;
 }
 
@@ -178,5 +203,51 @@ li {
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+/*=== RESPONSIVE PARA NAVBAR STICKY ===*/
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 80px; 
+    }
+    
+    .nav-bar {
+        height: 80px;
+        padding: 15px 20px;
+    }
+    
+    .nav-bar.scrolled {
+        height: 70px;
+        padding: 12px 20px;
+    }
+    
+    .nav-bar.scrolled .logo-container {
+        width: 90px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    .nav-bar {
+        height: 70px;
+        padding: 10px 15px;
+    }
+    
+    .nav-bar.scrolled {
+        height: 60px;
+        padding: 8px 15px;
+    }
+    
+    .logo-container {
+        width: 90px;
+    }
+    
+    .nav-bar.scrolled .logo-container {
+        width: 75px;
     }
 }
